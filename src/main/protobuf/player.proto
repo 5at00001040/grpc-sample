@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package grpc.sample.protos.model.player;
+
+message Player {
+    string playerId = 1;
+    string playerName = 2;
+    repeated Permission permissions = 3;
+}
+
+message Permission {
+    string item = 1;
+    bool read = 2;
+    bool wirte = 3;
+}
