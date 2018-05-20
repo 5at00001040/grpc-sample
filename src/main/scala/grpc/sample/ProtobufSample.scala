@@ -1,3 +1,5 @@
+package grpc.sample
+
 import grpc.sample.protos.model.player.{Permission, Player}
 
 object ProtobufSample extends App {
