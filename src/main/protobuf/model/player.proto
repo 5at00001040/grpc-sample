@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package grpc.sample.protos.model.player;
+package grpc.sample.protos.model;
 
 message Player {
     string playerId = 1;

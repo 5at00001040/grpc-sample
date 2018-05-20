@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package grpc.sample.protos.model;
+
+message PositionTracking {
+    string playerId = 1;
+    Vector3 position = 7;
+    Vector3 direction = 8;
+}
+
+message Vector3 {
+    double x = 1;
+    double y = 2;
+    double z = 3;
+}

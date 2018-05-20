@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package grpc.sample.protos.service;
+
+import "model/player.proto";
+import "model/position.tracking.proto";
+
+service GameTrackingService {
+    rpc PostPlayer (grpc.sample.protos.model.Player) returns (Result) {}
+    rpc PostPositionTracking (stream grpc.sample.protos.model.PositionTracking) returns (Result) {}
+}
+
+message Result {
+    string message = 1;
+}
