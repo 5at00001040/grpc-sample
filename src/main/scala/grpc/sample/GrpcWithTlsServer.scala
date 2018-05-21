@@ -1,28 +1,32 @@
 package grpc.sample
 
+import java.io.File
+
 import grpc.sample.protos.model.player.Player
 import grpc.sample.protos.model.position.tracking.PositionTracking
-import grpc.sample.protos.service.game.tracking.{
-  GameTrackingServiceGrpc,
-  Result
-}
+import grpc.sample.protos.service.game.tracking.{GameTrackingServiceGrpc, Result}
+import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder
 import io.grpc.stub.StreamObserver
-import io.grpc.{Server, ServerBuilder}
+import io.grpc.Server
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object GrpcServer extends App {
-  val server = new GrpcServer(ExecutionContext.global)
+object GrpcWithTlsServer extends App {
+  val server = new GrpcWithTlsServer(ExecutionContext.global)
   server.start()
   server.blockUntilShutdown()
 }
 
-class GrpcServer(executionContext: ExecutionContext) { self =>
+class GrpcWithTlsServer(executionContext: ExecutionContext) { self =>
   private[this] var server: Server = null
 
   private def start(): Unit = {
-    server = ServerBuilder
-      .forPort(50051)
+    server = NettyServerBuilder
+      .forPort(50061)
+      .useTransportSecurity(
+        new File("/tmp/any/path/certs/server1.pem"),
+        new File("/tmp/any/path/certs/server1.key")
+      )
       .addService(
         GameTrackingServiceGrpc.bindService(new GameTrackingServiceImpl,
                                             executionContext))
